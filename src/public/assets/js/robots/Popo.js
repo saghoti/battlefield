@@ -10,15 +10,15 @@ export default class Popo extends Robot {
 
     this.setSensorRadius(100)
     this.moveSpeed = 5
-    this.moveX = -moveSpeed
-    this.moveY = moveSpeed
+    this.moveX = -this.moveSpeed
+    this.moveY = this.moveSpeed
   }
 
   update = () => {
     if (this.hasTarget()) {
       const target = this.getFirstTarget()
-      if (target.y + 10 < this.y) this.y -= moveSpeed
-      else if (target.y - 10 > this.y) this.y += moveSpeed
+      if (target.y + 10 < this.y) this.y -= this.moveSpeed
+      else if (target.y - 10 > this.y) this.y += this.moveSpeed
       else if (target.x < this.x) {
         this.setFaceDirection('left')
         this.fire()
@@ -30,18 +30,18 @@ export default class Popo extends Robot {
     } else {
       if (this.x < 35) {
         this.setFaceDirection('right')
-        this.moveX = moveSpeed
+        this.moveX = this.moveSpeed
         this.y += this.moveY
       } else if (this.x > 565) {
         this.setFaceDirection('left')
-        this.moveX = -moveSpeed
+        this.moveX = -this.moveSpeed
         this.y += this.moveY
       }
 
       if (this.y < 35) {
-        this.moveY = moveSpeed
+        this.moveY = this.moveSpeed
       } else if (this.y > 565) {
-        this.moveY = -moveSpeed
+        this.moveY = -this.moveSpeed
       }
 
       this.x += this.moveX
