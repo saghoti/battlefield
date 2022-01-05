@@ -1,8 +1,8 @@
 import Robot from "./Robot.js"
 
 export default class Popo extends Robot {
-  constructor(scene, x, y) {
-    super(scene, x, y, {
+  constructor(scene) {
+    super(scene, 400, 350, {
       name: 'popo',
       bulletSpeed: 3,
       faceDirection: 'left'
