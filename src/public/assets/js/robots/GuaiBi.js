@@ -4,7 +4,7 @@ export default class GuaiBi extends Robot {
     constructor(scene) {
         super(scene, 300, 500, {
             name: 'GuaiBi',
-            bulletSpeed: 10,
+            bulletSpeed: 20,
             faceDirection: 'up'
         })
         this.phase = 0;
@@ -20,23 +20,23 @@ export default class GuaiBi extends Robot {
         if (this.attackType == 0) {
             switch (this.phase) {
                 case 0:
-                    this.x = 50;
-                    this.y = 50;
+                    this.x = 30;
+                    this.y = 30;
                     this.setFaceDirection('down');
                     break;
                 case 1:
-                    this.x = 750;
-                    this.y = 50;
+                    this.x = 770;
+                    this.y = 30;
                     this.setFaceDirection('left');
                     break;
                 case 2:
-                    this.x = 750;
-                    this.y = 550;
+                    this.x = 770;
+                    this.y = 570;
                     this.setFaceDirection('up');
                     break;
                 case 3:
-                    this.x = 50;
-                    this.y = 550;
+                    this.x = 30;
+                    this.y = 570;
                     this.setFaceDirection('right');
                     break;
 
