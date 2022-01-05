@@ -1,6 +1,6 @@
 import Popo from "./robots/Popo.js";
+import GF2014NA from "./robots/GF2014NA.js";
 import GuaiBi from "./robots/GuaiBi.js";
-import GF2014NA from "./robots/GF2-014NA.js";
 
 export default class battle extends Phaser.Scene {
   constructor() {
@@ -24,7 +24,7 @@ export default class battle extends Phaser.Scene {
 
     // add your robot here
     new Popo(this)
-    new GuaiBi(this)
+    new GuaiBi(this,300,500)
     new GF2014NA(this)
   }
 }
