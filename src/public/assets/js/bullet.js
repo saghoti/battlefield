@@ -5,6 +5,7 @@ export default class Bullet extends Phaser.Physics.Matter.Sprite {
     super(scene.matter.world, x, y, 'bomb')
 
     this.name = 'bullet'
+    this.destroyReady = false
     this.setVelocity(vx, vy)
     scene.add.existing(this)
 
@@ -12,6 +13,11 @@ export default class Bullet extends Phaser.Physics.Matter.Sprite {
       delay: 50,
       callback: () => {
         if (!this) return
+        if (this.destroyReady) {
+          this.destroy()
+          return
+        }
+        
         this.setOnCollide((events) => {
           let otherObject = events.bodyA.gameObject
           if (events.bodyA.id === this.id) otherObject = events.bodyB.gameObject
