@@ -4,6 +4,7 @@ export default class Robot extends Phaser.GameObjects.Container {
   constructor(scene, x, y, config = {}) {
     super(scene, 0, 0)
 
+    this.id = `${this.name}-${Date.now()}`
     this.name = config.name ?? `defaultName-${this.id}`
     // sprite and render
     const sprite = scene.add.sprite(0, -4, 'robot', 0)
@@ -26,8 +27,10 @@ export default class Robot extends Phaser.GameObjects.Container {
     // state
     let life = 100
     let bulletCount = 100
+    let lastHitDirection = 'none'
     let faceDirection = config.faceDirection ?? 'down'
     let bulletSpeed = config.bulletSpeed < 9 ? 9 : config.bulletSpeed
+    const targets = new Map()
 
     // matter body
     const Matter = Phaser.Physics.Matter.Matter
@@ -40,7 +43,36 @@ export default class Robot extends Phaser.GameObjects.Container {
     scene.matter.body.setInertia(this, Infinity)
     scene.add.existing(this)
 
+    sensor.onCollideCallback = (events) => {
+      let target = events.bodyA.gameObject
+      if (!target) return
+      if (target.id === this.id) target = events.bodyB.gameObject
+
+      if (target instanceof Robot) {
+        targets.set(target.id, target)
+      }
+    }
+
+    sensor.onCollideEndCallback = (events) => {
+      let target = events.bodyA.gameObject
+      if (!target) return
+      if (target.id === this.id) target = events.bodyB.gameObject
+
+      if (target instanceof Robot) {
+        targets.delete(target.id)
+      }
+    }
+
     // methods
+    this.getFirstTarget = () => {
+      const [first] = targets.keys()
+      return targets.get(first)
+    }
+
+    this.hasTarget = () => {
+      return targets.size > 0
+    }
+
     this.setSensorRadius = (radius) => {
       sensor.circleRadius = radius
     }
