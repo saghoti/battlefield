@@ -12,7 +12,6 @@ export default class GF2014NA extends Robot {
 
 // run 2 times per second
     update = () => {
-        console.log(this.b())
         if (this.hasTarget()) {
             const target = this.getFirstTarget()
             console.log(target.x, target.y)
