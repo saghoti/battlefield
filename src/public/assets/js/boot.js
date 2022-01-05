@@ -58,6 +58,7 @@ class boot extends Phaser.Scene {
       repeat: -1
     })
 
+    this.registry.set('winners', new Map())
     this.scene.start('battle')
   }
 }

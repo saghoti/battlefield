@@ -64,6 +64,10 @@ export default class Robot extends Phaser.GameObjects.Container {
     }
 
     // methods
+    this.isDead = () => {
+      return rope.visible
+    }
+
     this.getFirstTarget = () => {
       const [first] = targets.keys()
       return targets.get(first)
@@ -159,6 +163,7 @@ export default class Robot extends Phaser.GameObjects.Container {
       sprite.setVisible(false)
       rope.setColors(0x707070)
       rope.flipY = true
+      rope.setVisible(true)
       this.body.destroy()
     }
 
@@ -166,5 +171,7 @@ export default class Robot extends Phaser.GameObjects.Container {
     this.x = x
     this.y = y
     this.setFaceDirection(faceDirection)
+
+    scene.players.set(this.name, this)
   }
 }
