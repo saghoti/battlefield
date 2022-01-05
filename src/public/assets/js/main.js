@@ -1,5 +1,6 @@
 import Popo from "./robots/Popo.js";
 import T800 from "./robots/T800.js";
+import GuaiBi from "./robots/GuaiBi.js";
 
 export default class battle extends Phaser.Scene {
   constructor() {
@@ -17,13 +18,13 @@ export default class battle extends Phaser.Scene {
         let target = event.bodyA.gameObject
         if (event.bodyA.id === wall.id) target = event.bodyB.gameObject
         
-        if (target.name === 'bullet') target.destroy()
+        if (target.name === 'bullet') target.destroyReady = true
       }
     })
 
     // add your robot here
-    new Popo(this, 400, 350)
-    new T800(this, 200, 300)
+    new Popo(this)
     new GuaiBi(this,300,500)
+    new GF2014NA(this,300,100)
   }
 }
