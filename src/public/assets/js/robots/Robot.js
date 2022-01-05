@@ -55,7 +55,7 @@ export default class Robot extends Phaser.GameObjects.Container {
 
     sensor.onCollideEndCallback = (events) => {
       let target = events.bodyB.gameObject
-      if (!target) return
+      if (!target || !events.bodyA.gameObject) return
       if (events.bodyA.gameObject.id !== this.id) return
 
       if (target instanceof Robot) {

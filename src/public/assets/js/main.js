@@ -1,6 +1,6 @@
 import Popo from "./robots/Popo.js";
 import T800 from "./robots/T800.js";
-import GuaiBi from "./robots/GuaiBi";
+import GuaiBi from "./robots/GuaiBi.js";
 
 export default class battle extends Phaser.Scene {
   constructor() {
