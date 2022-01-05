@@ -1,8 +1,8 @@
 import Robot from "./Robot.js"
 
 export default class GF2014NA extends Robot {
-    constructor(scene, x, y) {
-        super(scene, x, y, {
+    constructor(scene) {
+        super(scene, 300,100, {
             name: 'GF2-014NA',
             bulletSpeed: 10,
             faceDirection: 'down'
