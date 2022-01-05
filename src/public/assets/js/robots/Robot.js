@@ -20,15 +20,14 @@ export default class Robot extends Phaser.GameObjects.Container {
     }).setOrigin(.5, 0)
     this.add(bulletCountText)
     const rope = scene.add.rope(0, 0, 'robot', 0)
-    rope.setColors(0xf71b1b)
+    rope.setColors(0x707070)
     rope.setVisible(false)
     this.add(rope)
 
     // state
+    this.invincible = false
     let life = 100
     let bulletCount = 100
-    let lastHitDirection = 'none'
-    let invincible = false
     let faceDirection = config.faceDirection ?? 'down'
     let bulletSpeed = config.bulletSpeed < 9 ? 9 : config.bulletSpeed
     const targets = new Map()
@@ -116,8 +115,8 @@ export default class Robot extends Phaser.GameObjects.Container {
     }
 
     this.damage = (value) => {
-      invincible = true
-      rope.setVisible(true)
+      this.invincible = true
+      sprite.setVisible(false)
       life -= value
       lifeBar.width -= (value * 0.5)
 
@@ -128,13 +127,19 @@ export default class Robot extends Phaser.GameObjects.Container {
       }
 
       if (life <= 0) {
+        this.invincible = false
         this.dispose()
       } else {
-        scene.time.addEvent({
-          delay: 300,
+        const splash = scene.time.addEvent({
+          delay: 50,
           callback: () => {
-            rope.setVisible(false)
-          }
+            sprite.setVisible(!sprite.visible)
+            if (splash.repeatCount <= 0) {
+              sprite.setVisible(true)
+              this.invincible = false
+            }
+          },
+          repeat: 7
         })
       }
     }
