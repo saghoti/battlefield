@@ -1,0 +1,19 @@
+{
+  "name": "battlefield",
+  "version": "1.0.0",
+  "description": "robot fight",
+  "main": "src/app.js",
+  "author": "Arthur",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.4",
+    "phaser": "^3.55.2"
+  },
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
