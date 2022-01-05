@@ -28,6 +28,7 @@ export default class Robot extends Phaser.GameObjects.Container {
     let life = 100
     let bulletCount = 100
     let lastHitDirection = 'none'
+    let invincible = false
     let faceDirection = config.faceDirection ?? 'down'
     let bulletSpeed = config.bulletSpeed < 9 ? 9 : config.bulletSpeed
     const targets = new Map()
@@ -115,6 +116,7 @@ export default class Robot extends Phaser.GameObjects.Container {
     }
 
     this.damage = (value) => {
+      invincible = true
       rope.setVisible(true)
       life -= value
       lifeBar.width -= (value * 0.5)

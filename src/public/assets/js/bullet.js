@@ -23,6 +23,7 @@ export default class Bullet extends Phaser.Physics.Matter.Sprite {
           if (events.bodyA.id === this.id) otherObject = events.bodyB.gameObject
     
           if (otherObject instanceof Robot) {
+            if (otherObject.invincible) return
             otherObject.damage(10)
           }
           this.destroy()
