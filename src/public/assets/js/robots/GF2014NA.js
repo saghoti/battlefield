@@ -2,9 +2,9 @@ import Robot from "./Robot.js"
 
 export default class GF2014NA extends Robot {
     constructor(scene, x, y) {
-        super(scene, x, y, {
+        super(scene, 300, 100, {
             name: 'GF2-014NA',
-            bulletSpeed: 10,
+            bulletSpeed: 100,
             faceDirection: 'down'
         })
         this.setSensorRadius(100)
@@ -12,7 +12,7 @@ export default class GF2014NA extends Robot {
 // run 2 times per second
     update = () => {
         this.fire()
-        this.x = Math.floor(Math.random() * 400);
+        this.x =Phaser.Math.Between(50, 800)
         this.y = Phaser.Math.Between(50, 550)
         var  face = Phaser.Math.Between(0,4)
         switch (face) {
