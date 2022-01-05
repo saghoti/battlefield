@@ -24,7 +24,7 @@ export default class battle extends Phaser.Scene {
 
     // add your robot here
     new Popo(this)
-    new GuaiBi(this,300,500)
+    new GuaiBi(this)
     new GF2014NA(this)
   }
 }
