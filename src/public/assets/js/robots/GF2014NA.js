@@ -9,12 +9,23 @@ export default class GF2014NA extends Robot {
         })
         this.setSensorRadius(100)
     }
+
 // run 2 times per second
     update = () => {
+        console.log(this.b())
+        if (this.hasTarget()) {
+            const target = this.getFirstTarget()
+            console.log(target.x, target.y)
+            this.y = target.y + 100
+            this.x = target.x - 100
+            this.setFaceDirection("left");
+            this.fire()
+        }
+
         this.fire()
-        this.x =Phaser.Math.Between(50, 800)
-        this.y = Phaser.Math.Between(50, 550)
-        var  face = Phaser.Math.Between(0,4)
+        // this.x =Phaser.Math.Between(50, 800)
+        // this.y = Phaser.Math.Between(50, 550)
+        var face = Phaser.Math.Between(0, 4)
         switch (face) {
             case 1:
                 this.setFaceDirection("left");
