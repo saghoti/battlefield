@@ -1,6 +1,6 @@
 import Popo from "./robots/Popo.js";
-import GF2014NA from "./robots/GF2-014NA.js";
 import GuaiBi from "./robots/GuaiBi.js";
+import GF2014NA from "./robots/GF2-014NA.js";
 
 export default class battle extends Phaser.Scene {
   constructor() {
