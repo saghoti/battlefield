@@ -44,9 +44,9 @@ export default class Robot extends Phaser.GameObjects.Container {
     scene.add.existing(this)
 
     sensor.onCollideCallback = (events) => {
-      let target = events.bodyA.gameObject
-      if (!target) return
-      if (target.id === this.id) target = events.bodyB.gameObject
+      let target = events.bodyB.gameObject
+      if (!target || !events.bodyA.gameObject) return
+      if (events.bodyA.gameObject.id !== this.id) return
 
       if (target instanceof Robot) {
         targets.set(target.id, target)
@@ -54,9 +54,9 @@ export default class Robot extends Phaser.GameObjects.Container {
     }
 
     sensor.onCollideEndCallback = (events) => {
-      let target = events.bodyA.gameObject
+      let target = events.bodyB.gameObject
       if (!target) return
-      if (target.id === this.id) target = events.bodyB.gameObject
+      if (events.bodyA.gameObject.id !== this.id) return
 
       if (target instanceof Robot) {
         targets.delete(target.id)
