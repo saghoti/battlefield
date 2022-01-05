@@ -22,8 +22,8 @@ export default class battle extends Phaser.Scene {
     })
 
     // add your robot here
-    const popo = new Popo(this, 400, 200)
-    const t800 = new T800(this, 200, 300)
-    const guiaBi = new GuaiBi(this, 300, 550)
+    new Popo(this, 400, 350)
+    new T800(this, 200, 300)
+    new GuaiBi(this,300,500)
   }
 }
