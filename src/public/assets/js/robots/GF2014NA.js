@@ -4,10 +4,9 @@ export default class GF2014NA extends Robot {
     constructor(scene, x, y) {
         super(scene, 35, 35, {
             name: 'GF2-014NA',
-            bulletSpeed: 100,
+            bulletSpeed: 120,
             faceDirection: 'right'
         })
-        this.setSensorRadius(100)
     }
 
 // run 2 times per second
@@ -19,8 +18,10 @@ export default class GF2014NA extends Robot {
 
             if (bodyX > 0) {
                 this.setFaceDirection("left")
+                var moveY =  Phaser.Math.Between(-50,50)
                 if (this.y > 565)
                     this.y = target.y + Phaser.Math.Between(-50, -1)
+                    // this.y = this.y - moveY * 2
                 else
                     this.y = target.y + Phaser.Math.Between(1, 50)
             } else {
@@ -50,13 +51,12 @@ export default class GF2014NA extends Robot {
     }
     update = () => {
 
-
         if (this.hasTarget()) {
             const target = this.getFirstTarget()
-            console.log(target.x, target.y)
+            console.log(target)
             this.y = target.y + 100
             this.x = target.x - 100
-            this.setFaceDirection("right");
+
             this.fire()
         }
         this.setFaceDirection("right");
