@@ -63,24 +63,14 @@ export default class Robot extends Phaser.GameObjects.Container {
     this.getFirstTarget = () => {
       // const [first] = targets.keys()
       // return targets.get(first)
-      console.warn(this.name, 'getFirstTarget() has been deprecated, you should implement by yourself')
+      // console.warn(this.name, 'getFirstTarget() has been deprecated, you should implement by yourself')
       return undefined
     }
 
     this.hasTarget = () => {
       // return targets.size > 0
-      console.warn(this.name, 'hasTarget() has been deprecated, you should implement by yourself')
+      // console.warn(this.name, 'hasTarget() has been deprecated, you should implement by yourself')
       return false
-    }
-
-    this.setSensorRadius = (radius) => {
-      // sensor.circleRadius = radius
-      // Phaser.Physics.Matter.Matter.Body.scale(sensor, radius, radius)
-      console.warn(this.name, 'sensor radius can only set once, use config.sensorRadius instead.')
-    }
-
-    this.getSensorRadius = () => {
-      return sensor.circleRadius
     }
 
     this.setName = (name) => {

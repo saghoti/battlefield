@@ -8,8 +8,6 @@ export default class T800 extends Robot {
       faceDirection: 'right',
       sensorRadius: 300
     })
-
-    this.setSensorRadius(3)
   }
 
   // run 2 times per second
