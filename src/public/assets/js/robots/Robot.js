@@ -33,14 +33,15 @@ export default class Robot extends Phaser.GameObjects.Container {
     const targets = new Map()
 
     // matter body
-    const Matter = Phaser.Physics.Matter.Matter
-    const collideBody = Matter.Bodies.rectangle(0, 0, 40, 56)
-    const sensor = Matter.Bodies.circle(0, 0, 60, { isSensor: true })
-    const compoundBody = Matter.Body.create({
-      parts: [ collideBody, sensor ]
+    const Bodies = Phaser.Physics.Matter.Matter.Bodies
+    const collideBody = Bodies.rectangle(0, 0, 40, 56)
+    const sensor = Bodies.circle(0, 0, config.sensorRadius ?? 60, { isSensor: true })
+    sensor.name = 'sensor'
+    const compoundBody = Phaser.Physics.Matter.Matter.Body.create({
+      parts: [ collideBody, sensor ],
+      inertia: Infinity
     })
     scene.matter.add.gameObject(this, compoundBody)
-    scene.matter.body.setInertia(this, Infinity)
     scene.add.existing(this)
 
     sensor.onCollideCallback = (events) => {
@@ -50,6 +51,10 @@ export default class Robot extends Phaser.GameObjects.Container {
 
       if (target instanceof Robot) {
         targets.set(target.id, target)
+      } else if (target instanceof Bullet) {
+        if (target.shooter !== this.name) {
+          this.bulletSensor(target)
+        }
       }
     }
 
@@ -78,7 +83,9 @@ export default class Robot extends Phaser.GameObjects.Container {
     }
 
     this.setSensorRadius = (radius) => {
-      sensor.circleRadius = radius
+      // sensor.circleRadius = radius
+      // Phaser.Physics.Matter.Matter.Body.scale(sensor, radius, radius)
+      console.warn('sensor radius can only set once, use config.sensorRadius instead.')
     }
 
     this.getSensorRadius = () => {
@@ -113,7 +120,7 @@ export default class Robot extends Phaser.GameObjects.Container {
         vy = bulletSpeed
       }
       
-      new Bullet(scene, this.x, this.y, vx, vy)
+      new Bullet(scene, this.x, this.y, vx, vy, this.name)
       bulletCount--
       bulletCountText.text = bulletCount
     }
@@ -174,4 +181,6 @@ export default class Robot extends Phaser.GameObjects.Container {
 
     scene.players.set(this.name, this)
   }
+
+  bulletSensor(target){}
 }
