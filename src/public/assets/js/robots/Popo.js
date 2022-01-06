@@ -4,23 +4,44 @@ export default class Popo extends Robot {
   constructor(scene) {
     super(scene, 400, 400, {
       name: 'popo',
-      bulletSpeed: 30,
+      bulletSpeed: 10,
       faceDirection: 'down',
-      sensorRadius: 150
+      sensorRadius: 100
+    })
+
+    this.targets = new Map()
+    this.findEnemy(scene)
+  }
+
+  findEnemy = (scene) => {
+    const act = scene.matter.add.circle(400, 300, 800, {isSensor: true})
+    act.onCollideCallback = (events) => {
+      let body = events.bodyA
+      if (body.id === act.id) body = events.bodyB
+
+      if (body.gameObject && body.gameObject instanceof Robot) {
+        if (body.gameObject.name === this.name) return
+        this.targets.set(body.gameObject.name, body.gameObject)
+      }
+    }
+    scene.time.addEvent({
+      delay: 100,
+      callback: () => {
+        scene.matter.world.remove(act)
+      }
     })
   }
 
   update = () => {
-    // this.y = Phaser.Math.Between(50, 550)
-    this.clockwiseTurn(true)
+    if (this.targets.size <= 0) return
 
-    // if (this.invincible) {
-    //   this.setFaceDirection('up')
-    //   this.fire()
-    //   this.setFaceDirection('down')
-    //   this.fire()
-    //   this.setFaceDirection('left')
-    // }
+    const [first] = this.targets.keys()
+    const target = this.targets.get(first)
+    if (!target.isDead()) {
+      this.snipe(target)
+    } else {
+      this.targets.delete(target.name)
+    }
   }
 
   bulletSensor = (target) => {
@@ -48,6 +69,30 @@ export default class Popo extends Robot {
       } else if (target.x > this.x) {
         this.setFaceDirection('right')
       } 
+    }
+  }
+
+  snipe(target) {
+    if (target.getFaceDirection() === 'up' || target.getFaceDirection() === 'down') {
+      this.y = target.y
+      if (target.x + 100 < 500) {
+        this.x = target.x + 150
+        this.setFaceDirection('left')
+      } else {
+        this.x = target.x - 150
+        this.setFaceDirection('right')
+      }
+      this.fire()
+    } else {
+      this.x = target.x
+      if (target.y + 100 < 400) {
+        this.y = target.y + 150
+        this.setFaceDirection('up')
+      } else {
+        this.y = target.y - 150
+        this.setFaceDirection('down')
+      }
+      this.fire()
     }
   }
 

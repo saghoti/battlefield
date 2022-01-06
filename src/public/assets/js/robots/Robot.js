@@ -30,7 +30,6 @@ export default class Robot extends Phaser.GameObjects.Container {
     let bulletCount = 100
     let faceDirection = config.faceDirection ?? 'down'
     let bulletSpeed = config.bulletSpeed < 9 ? 9 : config.bulletSpeed
-    const targets = new Map()
 
     // matter body
     const Bodies = Phaser.Physics.Matter.Matter.Bodies
@@ -49,22 +48,10 @@ export default class Robot extends Phaser.GameObjects.Container {
       if (!target || !events.bodyA.gameObject) return
       if (events.bodyA.gameObject.id !== this.id) return
 
-      if (target instanceof Robot) {
-        targets.set(target.id, target)
-      } else if (target instanceof Bullet) {
+      if (target instanceof Bullet) {
         if (target.shooter !== this.name) {
           this.bulletSensor(target)
         }
-      }
-    }
-
-    sensor.onCollideEndCallback = (events) => {
-      let target = events.bodyB.gameObject
-      if (!target || !events.bodyA.gameObject) return
-      if (events.bodyA.gameObject.id !== this.id) return
-
-      if (target instanceof Robot) {
-        targets.delete(target.id)
       }
     }
 
@@ -74,12 +61,16 @@ export default class Robot extends Phaser.GameObjects.Container {
     }
 
     this.getFirstTarget = () => {
-      const [first] = targets.keys()
-      return targets.get(first)
+      // const [first] = targets.keys()
+      // return targets.get(first)
+      console.warn(this.name, 'getFirstTarget() has been deprecated, you should implement by yourself')
+      return undefined
     }
 
     this.hasTarget = () => {
-      return targets.size > 0
+      // return targets.size > 0
+      console.warn(this.name, 'hasTarget() has been deprecated, you should implement by yourself')
+      return false
     }
 
     this.setSensorRadius = (radius) => {
