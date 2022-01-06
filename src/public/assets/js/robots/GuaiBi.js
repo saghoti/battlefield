@@ -62,14 +62,14 @@ export default class GuaiBi extends Robot {
                     this.setFaceDirection('right');
                     break;
                 case 1:
-                    this.x = 750;
-                    this.y = Phaser.Math.Between(0, 550);
-                    this.setFaceDirection('left');
-                    break;
-                case 2:
                     this.x = Phaser.Math.Between(0, 750);
                     this.y = 0;
                     this.setFaceDirection('down');
+                    break;
+                case 2:
+                    this.x = 750;
+                    this.y = Phaser.Math.Between(0, 550);
+                    this.setFaceDirection('left');
                     break;
                 case 3:
                     this.x = Phaser.Math.Between(0, 750);
