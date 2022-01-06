@@ -1,4 +1,4 @@
-# battlefield
+# battlefield v3.0
 
 程式人之間的機器人大戰
 
@@ -29,11 +29,14 @@ API
 - `name` 機器人顯示的名稱
 - `bulletSpeed` 子彈速度，最低：9
 - `faceDirection` 啟始的面向
+- `sensorRadius` 感應半徑，預設：60
 
 2. method
 - `this.fire()` 發射子彈
-- `this.setSensorRadius()` 設定感應半徑
-- `this.getSensorRadius()` 取得感應半徑
 - `this.setName()` 設定名稱
 - `this.setFaceDirection()` 設定面向
 - `this.getFaceDirection()` 取得面向
+
+Path info
+---
+v3.0 - 子彈感應
