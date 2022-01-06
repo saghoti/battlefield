@@ -85,7 +85,7 @@ export default class Robot extends Phaser.GameObjects.Container {
     this.setSensorRadius = (radius) => {
       // sensor.circleRadius = radius
       // Phaser.Physics.Matter.Matter.Body.scale(sensor, radius, radius)
-      console.warn('sensor radius can only set once, use config.sensorRadius instead.')
+      console.warn(this.name, 'sensor radius can only set once, use config.sensorRadius instead.')
     }
 
     this.getSensorRadius = () => {

@@ -55,7 +55,7 @@ export default class battle extends Phaser.Scene {
         let target = event.bodyA.gameObject
         if (event.bodyA.id === wall.id) target = event.bodyB.gameObject
         
-        if (target.name === 'bullet') target.destroyReady = true
+        if (target?.name === 'bullet') target.destroyReady = true
       }
     })
 

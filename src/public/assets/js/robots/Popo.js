@@ -4,7 +4,7 @@ export default class Popo extends Robot {
   constructor(scene) {
     super(scene, 750, 150, {
       name: 'popo',
-      bulletSpeed: 9,
+      bulletSpeed: 30,
       faceDirection: 'down',
       sensorRadius: 150
     })
