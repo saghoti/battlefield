@@ -30,7 +30,7 @@ export default class battle extends Phaser.Scene {
 
 
     // ui
-    this.add.text(10, 10, 'battlefield v3.0', {
+    this.add.text(10, 10, 'battlefield v3.1', {
       fill: '#ff00f7'
     });
 
@@ -51,21 +51,45 @@ export default class battle extends Phaser.Scene {
       callback: () => {
         timeCount--
         timeText.text = `TimeLeft:${timeCount}`
+
+        // time's up
         if (gameTimer.repeatCount <= 0) {
           for(const [key, value] of this.players) {
             if (!value.isDead()) {
-              if (this.winners.has(key)) {
-                this.winners.set(key, this.winners.get(key)+1)
-              } else {
-                this.winners.set(key, 1)
-              }
+              this.addWinner(key)
             }
           }
-          this.registry.set('winners', this.winners)
-          this.scene.restart()
+          this.gameRestart()
+        }
+
+        // early game
+        if (gameTimer.repeatCount % 10 === 0) {
+          let leftPlayer = null
+          for(const [key, value] of this.players) {
+            if (!value.isDead()) {
+              if (leftPlayer !== null) return
+              leftPlayer = key
+            }
+          }
+          this.addWinner(leftPlayer)
+          this.gameRestart()
         }
       },
       repeat: timeCount-1
     })
+    
+  }
+
+  addWinner = (key) => {
+    if (this.winners.has(key)) {
+      this.winners.set(key, this.winners.get(key)+1)
+    } else {
+      this.winners.set(key, 1)
+    }
+  }
+
+  gameRestart = () => {
+    this.registry.set('winners', this.winners)
+    this.scene.restart()
   }
 }
