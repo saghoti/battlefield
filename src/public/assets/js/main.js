@@ -8,10 +8,29 @@ export default class battle extends Phaser.Scene {
   }
 
   create() {
+    // world setting
     this.winners = this.registry.get('winners')
     this.players = new Map()
 
-    this.add.text(10, 10, 'battlefield v2.0.0', {
+    this.matter.world.getAllBodies().forEach((wall) => {
+      wall.onCollideCallback = (event) => {
+        let target = event.bodyA.gameObject
+        if (event.bodyA.id === wall.id) target = event.bodyB.gameObject
+        
+        if (target?.name === 'bullet') target.destroyReady = true
+      }
+    })
+
+
+    // add your robot here ==============================================
+    new Popo(this)
+    new GuaiBi(this)
+    new GF2014NA(this)
+    // add your robot here ==============================================
+
+
+    // ui
+    this.add.text(10, 10, 'battlefield v3.0', {
       fill: '#ff00f7'
     });
 
@@ -48,20 +67,5 @@ export default class battle extends Phaser.Scene {
       },
       repeat: timeCount-1
     })
-    
-    // world setting
-    this.matter.world.getAllBodies().forEach((wall) => {
-      wall.onCollideCallback = (event) => {
-        let target = event.bodyA.gameObject
-        if (event.bodyA.id === wall.id) target = event.bodyB.gameObject
-        
-        if (target?.name === 'bullet') target.destroyReady = true
-      }
-    })
-
-    // add your robot here
-    new Popo(this)
-    new GuaiBi(this)
-    new GF2014NA(this)
   }
 }
